@@ -1,0 +1,27 @@
+# Fichiers Excel
+*.xlsx
+
+# Notebooks Jupyter
+*.ipynb
+
+# Cache Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Environnements virtuels
+venv/
+.env/
+.venv/
+
+# Fichiers temporaires
+*.tmp
+*.log
+*.DS_Store
+
+# Cache Streamlit
+.streamlit/
+
+# Cache VSCode
+.vscode/
