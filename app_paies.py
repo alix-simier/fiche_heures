@@ -14,7 +14,7 @@ if "liste_manquants" not in st.session_state:
     st.session_state.liste_manquants = []
 
 compte_travaux = st.file_uploader("Télécharger l'export du compte de travaux du mois", type="xlsx")
-regime_societe = st.file_uploader("Télécharger l'excel des régimes et sociétés associées aux employés", type="xlsx")
+regime_societe = st.file_uploader("Télécharger l'excel des régimes et sociétés associés aux salariés", type="xlsx")
 
 if st.button("Lancer le traitement"):
     if not compte_travaux or not regime_societe:
@@ -35,7 +35,7 @@ if st.button("Lancer le traitement"):
             st.session_state.sans_rtt_file = buffer_sans_rtt
             st.session_state.liste_manquants = liste
 
-            st.success("Les feuilles d'heures ont été générées avec succès")
+            st.success("Les feuilles d'heures ont été générées avec succès.")
 
         except Exception as e:
             st.error(f"Une erreur a eu lieu : {e}")
