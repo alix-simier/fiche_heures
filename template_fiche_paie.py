@@ -1,17 +1,28 @@
 from datetime import date, datetime
 from openpyxl.styles import Font, Alignment, Border, Side, PatternFill
 import calendar
-import locale
 
-locale.setlocale(locale.LC_TIME, "fr_FR.UTF-8")
+JOURS_FR = [
+    "lundi", "mardi", "mercredi", "jeudi", "vendredi", "samedi", "dimanche"
+]
+
+MOIS_FR = [
+    "janvier", "février", "mars", "avril", "mai", "juin",
+    "juillet", "août", "septembre", "octobre", "novembre", "décembre"
+]
+
+
 def jours_du_mois(mois, annee):
     jours = []
     nb_jours = calendar.monthrange(annee, mois)[1]
+
     for jour in range(1, nb_jours + 1):
-        date_obj = date(annee, mois, jour)
-        jour_formate = date_obj.strftime("%A %-d %B %Y")
-        jour_formate = jour_formate[0].lower() + jour_formate[1:]
+        d = date(annee, mois, jour)
+        nom_jour = JOURS_FR[d.weekday()]
+        nom_mois = MOIS_FR[mois - 1]
+        jour_formate = f"{nom_jour} {jour} {nom_mois} {annee}"
         jours.append(jour_formate)
+
     return jours
 
 def generation_template_feuille_rtt(ws, nom, prenom, mois, annee, societe):
