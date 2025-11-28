@@ -186,6 +186,8 @@ def generation_template_feuille_rtt(ws, nom, prenom, mois, annee, societe):
     ws[f"E{l}"] = "NBRE JOURS"
     ws[f"F{l}"] = f'=NB(F4:F{fin})'
 
+    ws.print_area = f"A1:F{l+1}"
+
     return ws, date_ligne
 
 
@@ -315,5 +317,7 @@ def generation_template_feuille_sans_rtt(ws, nom, prenom, mois, annee, societe):
     ws[f"A{l}"] = "Signature du salarié"
     ws[f"E{l}"] = "NBRE JOURS"
     ws[f"F{l}"] = f'=NB(F4:F{fin})'
+
+    ws.print_area = f"A1:F{l+1}"
 
     return ws, date_ligne
