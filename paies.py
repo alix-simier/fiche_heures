@@ -64,4 +64,6 @@ def fiche_paie(compte_travaux, regime_societe):
     print("Fichiers Excel générés avec succès !")
 
 
-
+if __name__ =="__main__":
+    
+    res = fiche_paie("../Paies/ExportCT OCTOBRE 2025-1.xlsx", "../regime_societe.xlsx")
