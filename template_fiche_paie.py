@@ -11,6 +11,11 @@ MOIS_FR = [
     "juillet", "août", "septembre", "octobre", "novembre", "décembre"
 ]
 
+MOIS_FR_REDUITS = [
+    "JAN", "FEV", "MAR", "AVR", "MAI", "JUIN",
+    "JUIL", "AOUT", "SEPT", "OCT", "NOV", "DEC"
+]
+
 
 def jours_du_mois(mois, annee):
     jours = []
@@ -36,6 +41,7 @@ def generation_template_feuille_rtt(ws, nom, prenom, mois, annee, societe):
     nom_feuille = f"{nom} {prenom}"
     nom_feuille = nom_feuille[:31]
     ws.title = nom_feuille
+    mois_red = MOIS_FR_REDUITS[mois-1]
 
     bold = Font(bold=True)
     bold_underlign = Font(bold=True, underline='single')
@@ -116,9 +122,10 @@ def generation_template_feuille_rtt(ws, nom, prenom, mois, annee, societe):
             ws[f'K{l}'] = f'=IF(E{l}>43,E{l}-43,0)'
             l += 1
             debut_semaine = l
+    fin = l-1
     l+=1
 
-    ws[f'A{l}'] = "SOLDE RTT DU AU 01/10/25 :"
+    ws[f'A{l}'] = f"SOLDE RTT DU AU 01/{mois}/{annee[2:]} :"
     ws[f'A{l}'].font = bold
     ws[f'B{l}'].font = bold
     ws[f'D{l}'] = "TOTAL HEURES A 100% :"
@@ -137,7 +144,7 @@ def generation_template_feuille_rtt(ws, nom, prenom, mois, annee, societe):
     ws[f'K{l}'].font = bold
     l+=1
 
-    ws[f'A{l}'] = "RTT ACQUIS EN OCT 25 : "
+    ws[f'A{l}'] = f"RTT ACQUIS EN {mois_red} {annee[2:]} : "
     ws[f'A{l}'].font = bold
     ws[f'B{l}'] = f"=I{l-1}"
     ws[f'D{l}'] = "TOTAL HEURES A 125% :"
@@ -151,7 +158,7 @@ def generation_template_feuille_rtt(ws, nom, prenom, mois, annee, societe):
     ws[f'K{l}'] = "PRIME"
     l += 1
 
-    ws[f'A{l}'] = "RTT PRIS EN OCT 25 :"
+    ws[f'A{l}'] = f"RTT PRIS EN {mois_red} {annee[2:]} :"
     ws[f'A{l}'].font = bold
     ws[f'B{l}'] = f'=J{l-2}'
     ws[f'B{l}'].font = bold
@@ -161,7 +168,7 @@ def generation_template_feuille_rtt(ws, nom, prenom, mois, annee, societe):
     ws[f'F{l}'].font = bold
     l += 1
 
-    ws[f'A{l}'] = f"SOLDE RTT DU AU {jours[-1]}"
+    ws[f'A{l}'] = f"SOLDE RTT DU AU {jours[-1].split()[1]}/{mois}/{annee[2:]}"
     ws[f'A{l}'].font = bold
     ws[f'B{l}'] = f'=B{l-3}+B{l-2}-B{l-1}'
     ws[f'B{l}'].font = bold
@@ -176,6 +183,8 @@ def generation_template_feuille_rtt(ws, nom, prenom, mois, annee, societe):
     l += 2
 
     ws[f"A{l}"] = "Signature du salarié"
+    ws[f"E{l}"] = "NBRE JOURS"
+    ws[f"F{l}"] = f'=NB(F4:F{fin})'
 
     return ws, date_ligne
 
@@ -267,6 +276,7 @@ def generation_template_feuille_sans_rtt(ws, nom, prenom, mois, annee, societe):
             ws[f'I{l}'] = f'=IF(E{l}>43,E{l}-43,0)'
             l += 1
             debut_semaine = l
+    fin = l-1
     l+=1
 
     ws[f'D{l}'] = "TOTAL HEURES A 100% :"
@@ -303,5 +313,7 @@ def generation_template_feuille_sans_rtt(ws, nom, prenom, mois, annee, societe):
     l += 2
 
     ws[f"A{l}"] = "Signature du salarié"
+    ws[f"E{l}"] = "NBRE JOURS"
+    ws[f"F{l}"] = f'=NB(F4:F{fin})'
 
     return ws, date_ligne
