@@ -172,8 +172,6 @@ def generation_template_feuille_rtt(ws, nom, prenom, mois, annee, societe):
     ws[f'A{l}'].font = bold
     ws[f'B{l}'] = f'=B{l-3}+B{l-2}-B{l-1}'
     ws[f'B{l}'].font = bold
-    ws[f'C{l}'] = "Payés à 125%"
-    ws[f'C{l}'].font = bold
     l += 2
 
     ws.merge_cells(f'A{l}:F{l}')
@@ -186,7 +184,14 @@ def generation_template_feuille_rtt(ws, nom, prenom, mois, annee, societe):
     ws[f"E{l}"] = "NBRE JOURS"
     ws[f"F{l}"] = f'=COUNT(F4:F{fin})'
 
-    ws.print_area = f"A1:F{l+1}"
+    ws.print_area = f"A1:F47"
+
+    ws.column_dimensions['A'].width = 20
+    ws.column_dimensions['B'].width = 10
+    ws.column_dimensions['C'].width = 3
+    ws.column_dimensions['D'].width = 20
+    ws.column_dimensions['E'].width = 10
+    ws.column_dimensions['F'].width = 30
 
     return ws, date_ligne
 
@@ -318,6 +323,13 @@ def generation_template_feuille_sans_rtt(ws, nom, prenom, mois, annee, societe):
     ws[f"E{l}"] = "NBRE JOURS"
     ws[f"F{l}"] = f'=COUNT(F4:F{fin})'
 
-    ws.print_area = f"A1:F{l+1}"
+    ws.print_area = f"A1:F47"
+
+    ws.column_dimensions['A'].width = 20
+    ws.column_dimensions['B'].width = 10
+    ws.column_dimensions['C'].width = 3
+    ws.column_dimensions['D'].width = 20
+    ws.column_dimensions['E'].width = 10
+    ws.column_dimensions['F'].width = 30
 
     return ws, date_ligne
